@@ -1,15 +1,16 @@
 // TO DO:
-//  - add functionality for post titles
-//  - add time/date post was made
 //  - change 'Create Post' button to 'Edit Post'
 //  - add 'Cancel Edit' button to display during editing
+//  - create a post class for reusability
 
 
 let form = document.getElementById("form");
 let input = document.getElementById("input");
-let title = document.getElementById("postTitle");
-let msg = document.getElementById("msg");
+let postTitle = document.getElementById("postTitle");
+let msg = document.getElementById("msg"); // error message next to the "Create Post" button
 let posts = document.getElementById("posts");
+let leftColTitle = document.getElementById("leftColTitle");
+let postBtn = document.getElementById("postBtn");
 
 let currentPost = null;
 
@@ -25,6 +26,7 @@ form.addEventListener("submit", (e) => {
 
     formValidation();
 });
+
 
 // form input validation
 function formValidation(){
@@ -42,6 +44,7 @@ function formValidation(){
 // 'acceptData() collects information from the input and stores them in the 'data' object
 function acceptData(){
     data["text"] = input.value;
+    data["postTitle"] = postTitle.value;
     console.log(`Data has been collected:`, data);
     createPost();
 };
@@ -55,7 +58,7 @@ function createPost(){
         posts.innerHTML += `
         <div>
             <hr>
-            <h3>${data.title}<br>${currentDateTime}</h3>
+            <h3>${data.postTitle}<br>${currentDateTime}</h3>
             <p>${data.text}</p>
             <span class="options">
             <i onClick="editPost(this)" class="fas fa-edit"></i>
@@ -69,19 +72,31 @@ function createPost(){
         currentPost.innerHTML = input.value;
         setPostFormatting(currentPost, normal)
     }
-    editing = false;
+    // this is a shit show, fix it
     input.value = "";
+    postTitle.value = "";
     currentPost = null;
+    checkEditingStatus()
+    editing = false;
+    checkEditingStatus()
 };
 
-// 'e' is the trash can element, so we are accessing its parent element
+// 'e' is the trash can element, so we are accessing its parent element (aka, "the post")
 function deletePost(e) {
+    if(e === currentPost){
+        editing = false;
+        input.value = "";
+        postTitle.value = "";
+        currentPost = null;
+        checkEditingStatus();
+    }
     e.parentElement.parentElement.remove();
-
 }
 
 function editPost(e) {
     let postElement = e.parentElement.previousElementSibling; // get the post that is being edited
+    leftColTitle.textContent = "Edit a Post";
+    postBtn.textContent = "Edit Post";
 
     // user clicked edit on the post that is already being edited
     if(postElement === currentPost){
@@ -107,6 +122,8 @@ function editPost(e) {
         input.value = text; // display the text in the 'create a post' box
         setPostFormatting(postElement, normal)
     }
+
+    checkEditingStatus()
 }
 
 // formats a post to display as normal or in the 'edit' state
@@ -119,5 +136,15 @@ function setPostFormatting(_post, _normal){
         _post.style.color="#d9dadb";
         _post.style.fontStyle = "normal";
     }
+}
 
+function checkEditingStatus(){
+    if(editing){
+        leftColTitle.textContent = "Edit a Post";
+        postBtn.textContent = "Edit Post";
+    }
+    else{
+        leftColTitle.textContent = "Create a New Post";
+        postBtn.textContent = "Create Post";
+    }
 }
