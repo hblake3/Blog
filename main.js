@@ -7,6 +7,7 @@
 
 let form = document.getElementById("form");
 let input = document.getElementById("input");
+let title = document.getElementById("postTitle");
 let msg = document.getElementById("msg");
 let posts = document.getElementById("posts");
 
@@ -48,10 +49,13 @@ function acceptData(){
 // creates a 'post' div element and appends it to the 'posts' div
 function createPost(){
 
+    const currentDateTime = new Date().toLocaleString();
+
     if(!editing){
         posts.innerHTML += `
         <div>
             <hr>
+            <h3>${data.title}<br>${currentDateTime}</h3>
             <p>${data.text}</p>
             <span class="options">
             <i onClick="editPost(this)" class="fas fa-edit"></i>
@@ -63,8 +67,7 @@ function createPost(){
     }
     else{
         currentPost.innerHTML = input.value;
-        currentPost.style.color="#000";
-        currentPost.style.fontStyle = "normal";
+        setPostFormatting(currentPost, normal)
     }
     editing = false;
     input.value = "";
@@ -73,7 +76,8 @@ function createPost(){
 
 // 'e' is the trash can element, so we are accessing its parent element
 function deletePost(e) {
-    console.log(e.parentElement.parentElement.remove())
+    e.parentElement.parentElement.remove();
+
 }
 
 function editPost(e) {
@@ -112,8 +116,8 @@ function setPostFormatting(_post, _normal){
         _post.style.fontStyle = "normal";
     }
     else{
-        _post.style.color="#929292";
-        _post.style.fontStyle = "italic";
+        _post.style.color="#d9dadb";
+        _post.style.fontStyle = "normal";
     }
 
 }

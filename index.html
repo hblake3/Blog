@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <h1>Website Title</h1>
+        <h1>uBlog</h1>
         <nav>
             <a href="#">Home</a>
             <a href="#">About</a>
@@ -21,11 +21,11 @@
     <div class="container">
 
       <div class="left-column">
-        <h3>Create a New Post</h3>
+        <h2>Create a New Post</h2>
           <form id="form">
-              <input type="text" id="postTitle" placeholder="Create a title for your post!" required="true">
+              <input type="text" id="postTitle" placeholder="Create a title for your post!" required="true" maxlength="40">
               <br><br>
-              <textarea name="post" id="input" placeholder="What would you like to talk about?"></textarea>
+              <textarea name="input" id="input" placeholder="What would you like to talk about?" required ="true" maxlength="1000"></textarea>
               <br><br>
               <button type="submit">Create Post</button>
               <div id="msg"></div>
@@ -33,7 +33,7 @@
       </div>
       
       <div class="right-column">
-        <h3>Post History</h3>
+        <h2>Your Post History</h2>
         <div id="posts">
           
           <div>
