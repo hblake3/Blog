@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #f8f8f8;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+h1 {
+    margin: 0;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    margin-top: 100px;
+}
+
+.left-column {
+    width: 200px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    position: fixed;
+    top: 100px; 
+    bottom: 0;
+    overflow-y: auto;
+    width: auto;
+}
+
+.right-column {
+    flex: 1;
+    margin-left: 320px;
+    padding: 20px;
+    overflow-y: auto;
+    max-width: 300px;
+}
+
+hr {
+    width: 0%;
+    min-width: 20%;
+    max-width: 100%;
+    margin: 0 auto;
+    border: none;
+    border-bottom: 1px solid #666;
+    position: relative;
+    transition: box-shadow 200ms ease-in-out;
+    box-shadow: 0px 0px 0px 0px #f9f9f9;
+  }
+  
+  hr.activated {
+    box-shadow: 0px 4px 0px 0px #666;
+  }
+
+  
