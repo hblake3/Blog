@@ -2,6 +2,8 @@
 
 Welcome to uBlog - Your Personal Microblogging Platform! 🎉
 
+[🌐 View Live Website](https://hblake3.github.io/Blog/)
+
 ## 🌟 Features
 
 - ✍️ Create and publish your thoughts instantly
