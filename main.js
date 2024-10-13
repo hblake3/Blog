@@ -58,7 +58,7 @@ function createPost(){
         posts.innerHTML += `
         <div>
             <hr>
-            <h3>${data.postTitle}<br>${currentDateTime}</h3>
+            <h3>${data.postTitle}</h3><h4>${currentDateTime}</h4>
             <p>${data.text}</p>
             <span class="options">
             <i onClick="editPost(this)" class="fas fa-edit"></i>
@@ -70,15 +70,15 @@ function createPost(){
     }
     else{
         currentPost.innerHTML = input.value;
+        normal = true;
         setPostFormatting(currentPost, normal)
     }
-    // this is a shit show, fix it
+    // after creating/editing a post, reset the form
     input.value = "";
     postTitle.value = "";
-    currentPost = null;
-    checkEditingStatus()
     editing = false;
     checkEditingStatus()
+    currentPost = null;
 };
 
 // 'e' is the trash can element, so we are accessing its parent element (aka, "the post")
@@ -95,16 +95,19 @@ function deletePost(e) {
 
 function editPost(e) {
     let postElement = e.parentElement.previousElementSibling; // get the post that is being edited
+    let postElementTitle = postElement.previousElementSibling.previousElementSibling; // get the post title
+    
     leftColTitle.textContent = "Edit a Post";
     postBtn.textContent = "Edit Post";
 
-    // user clicked edit on the post that is already being edited
+    // user clicked edit on the post that is already being edited, cancel the edit
     if(postElement === currentPost){
         editing = false;
         normal = true;
         console.log("Editing the same post...");
         setPostFormatting(currentPost, normal)
         input.value=""
+        postTitle.value=""
         currentPost = null;
     }
     else{
@@ -117,12 +120,11 @@ function editPost(e) {
         normal = false;
         console.log("Editing a new post...");
         currentPost = postElement; // establish the new 'currentPost'
-        var text = postElement.innerHTML; // assign the text from the post
+        input.value = postElement.innerHTML; // assign the text from the post
+        postTitle.value = postElementTitle.innerHTML;
 
-        input.value = text; // display the text in the 'create a post' box
         setPostFormatting(postElement, normal)
     }
-
     checkEditingStatus()
 }
 
@@ -140,10 +142,12 @@ function setPostFormatting(_post, _normal){
 
 function checkEditingStatus(){
     if(editing){
+        postTitle.disabled = true;
         leftColTitle.textContent = "Edit a Post";
         postBtn.textContent = "Edit Post";
     }
     else{
+        postTitle.disabled = false;
         leftColTitle.textContent = "Create a New Post";
         postBtn.textContent = "Create Post";
     }

@@ -119,3 +119,7 @@ hr {
     margin: 0 0.4em;
 }
 
+h3, h4{
+    margin: 0;
+    padding: 0;
+}
